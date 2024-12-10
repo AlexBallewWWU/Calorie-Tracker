@@ -18,7 +18,7 @@ API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compo
 ## Demonstrations
 Upon running the app this page will be displayed created by one of my teamates, to begin my part click on the "+" on any of the meals will begin my part.
 
-![alt_text](/app/src/main/res/drawable/homepage.png)
+![alt_text](/app/src/main/res/drawable/HomePage.png)
 
 This page is used to display all food items for the breakfast meal, currently no items have been added so nothing is displayed.
 
@@ -26,15 +26,15 @@ This page is used to display all food items for the breakfast meal, currently no
 
 After clicking "Add", it will bring the user to a page to add items with two options
 
-![alt_text](/app/src/main/res/drawable/addingtype.png)
+![alt_text](/app/src/main/res/drawable/AddingType.png)
 
 Clicking on "Custom Entry" will bring the user to this page where the user can manually fill in on values (Error handeling is implemented)
 
-![alt_text](/app/src/main/res/drawable/customentry.png)
+![alt_text](/app/src/main/res/drawable/CustomEntry.png)
 
 The user will then be redirected back to the add option page, if they were to then choose "Barcode Entry" this barcode scanner will show up where they can add a barcode like below.
 
-![alt_text](/app/src/main/res/drawable/barcodeentry.png)
+![alt_text](/app/src/main/res/drawable/BarcodeEntry.png)
 
 Upon the Barcode being scanned the user will be redirected back to this page where they change how many servings they consumed (Error handeling implemented, default 1 serving)
 
@@ -42,7 +42,7 @@ Upon the Barcode being scanned the user will be redirected back to this page whe
 
 If the user goes back to the overview page all changes will be displayed
 
-![alt_text](/app/src/main/res/drawable/addFooditems.png)
+![alt_text](/app/src/main/res/drawable/AddFooditems.png)
 
 Lastly, these changes are also reflected in my teamates home page
 
