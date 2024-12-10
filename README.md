@@ -13,3 +13,4 @@ API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compo
 
 ## Demonstrations
 
+![alt_text](Calorie-Tracker/app/src/main/res/drawable/HomePage.png)
