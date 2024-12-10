@@ -28,15 +28,15 @@ After clicking "Add", it will bring the user to a page to add items with two opt
 
 ![alt_text](/app/src/main/res/drawable/AddingType.png)
 
-Clicking on "Custom Entry" will bring the user to this page where there user can manually fill in on values (Error handeling is implemented)
+Clicking on "Custom Entry" will bring the user to this page where the user can manually fill in on values (Error handeling is implemented)
 
 ![alt_text](/app/src/main/res/drawable/CustomEntry.png)
 
-The user will then be redirected back to the add option page, if they were to then choose "Barcode Entry" this barcode scanner will show up where than can add a barcode like below.
+The user will then be redirected back to the add option page, if they were to then choose "Barcode Entry" this barcode scanner will show up where they can add a barcode like below.
 
 ![alt_text](/app/src/main/res/drawable/BarcodeEntry.png)
 
-Upon the Barcode being scanned the user will beredirected back to this page where they change how many servings they consumed (Error handeling implemented, default 1 serving)
+Upon the Barcode being scanned the user will be redirected back to this page where they change how many servings they consumed (Error handeling implemented, default 1 serving)
 
 ![alt_text](/app/src/main/res/drawable/BarcodeEntry-Serving.png)
 
