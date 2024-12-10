@@ -67,13 +67,14 @@ import kotlin.math.roundToInt
 
 class AddFoodPage {
 
+    // all screens for adding items
     enum class AddFoodScreens {
         OVERVIEW,
         ADDING,
         CUSTOM_ENTRY,
         BARCODE_ENTRY
     }
-
+    // used for displaying
     data class FoodEntry(
         var meal: String,
         var description: String,
@@ -82,7 +83,7 @@ class AddFoodPage {
         var carbs: String,
         var fat: String
     )
-
+    // used for caching to reduce database calls
     data class MealInformation(
         var totalCalories: MutableState<String>,
         var totalCarbs: MutableState<String>,
@@ -126,9 +127,10 @@ class AddFoodPage {
         }
     }
 
+    // overview page to display all food items for each meal
     @Composable
     fun OverViewScreen(navController: NavHostController, mealType: String, curNavController: NavHostController, dbman: DatabaseManager) {
-        Scaffold(
+        Scaffold(  // topbar for meal
             topBar = {
                 Box(
                     modifier = Modifier.fillMaxWidth().padding(10.dp),
@@ -147,7 +149,7 @@ class AddFoodPage {
                     )
                 }
             },
-            bottomBar = {
+            bottomBar = {  // bottom bar for adding
                 Row (
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
@@ -182,7 +184,7 @@ class AddFoodPage {
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        when(mealType) {
+                        when(mealType) {   // each overview has its own graphic icon
                             "Breakfast" -> Image(painter = painterResource(R.drawable.breakfastgraphic), contentDescription = "Breakfast Graphic Image")
                             "Lunch" -> Image(painter = painterResource(R.drawable.lunchbox), contentDescription = "Breakfast Graphic Image")
                             "Dinner" -> Image(painter = painterResource(R.drawable.dinnergraphic), contentDescription = "Breakfast Graphic Image")
@@ -197,7 +199,7 @@ class AddFoodPage {
                 ) {
                     Row(
                         modifier = Modifier.padding(top = 20.dp)
-                    ) {
+                    ) {   // composable to reduce code
                         MacrosColumn(mealInformation.totalCalories.value, "Cal", "Calories")
                         MacrosColumn(mealInformation.totalCarbs.value, "g", "Carbs")
                         MacrosColumn(mealInformation.totalProtein.value, "g", "Protein")
@@ -231,6 +233,7 @@ class AddFoodPage {
     }
 
     // TODO: make some of these variables to reduce width of code
+    // method displays all items in associated meal
     @SuppressLint("MutableCollectionMutableState")
     @Composable
     fun ItemList(dbman: DatabaseManager, mealName: String, curNavController: NavHostController) {
@@ -270,7 +273,8 @@ class AddFoodPage {
                                 Icons.Default.Close,
                                 contentDescription = "",
                                 modifier = Modifier.size(40.dp).testTag("delete-item").clickable {
-                                    val temp = FoodEntry(
+
+                                    val temp = FoodEntry(  // item to add to db and local copy
                                         meal = mealName,
                                         description = mealInformation.items[index].description,
                                         calories = mealInformation.items[index].calories,
@@ -278,12 +282,13 @@ class AddFoodPage {
                                         fat = mealInformation.items[index].fat,
                                         carbs = mealInformation.items[index].carbs
                                     )
+                                    // TODO: reduce
                                     mealInformation.totalCalories.value = (mealInformation.totalCalories.value.toInt() - mealInformation.items[index].calories.toInt()).toString()
                                     mealInformation.totalFat.value = (mealInformation.totalFat.value.toInt() - mealInformation.items[index].fat.toInt()).toString()
                                     mealInformation.totalCarbs.value = (mealInformation.totalCarbs.value.toInt() - mealInformation.items[index].carbs.toInt()).toString()
                                     mealInformation.totalProtein.value = (mealInformation.totalProtein.value.toInt() - mealInformation.items[index].protein.toInt()).toString()
                                     mealInformation.items.removeAt(index)
-                                    dbman.deleteFoodItem(temp)
+                                    dbman.deleteFoodItem(temp)  // delete from database
                                     curNavController.navigate(AddFoodScreens.OVERVIEW.name)
                                 }
                             )
