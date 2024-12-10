@@ -8,8 +8,12 @@ more features are implemented, the most notable being users can view graphs for 
 I worked mostly on item entry. This means implementing the display page for items added, working on the database to store items for leaving and entering app, google camera (barcode scanner), API requests to get 
 nutrition associated with barcode values, etc. . . . 
 
+## Instrumented/Unit Testing
+All of my pages have implemented testing that can be run with gradle, these tests check to make sure navigation is working, overview is updating values, delete is deleting values, custom entry works for only
+correctly entered values, etc. . . .
+
 ## Concepts
-API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compose, Kotlin, Full-Stack
+API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compose, Kotlin, Full-Stack, Instrumented Testing, Unit Testing
 
 ## Demonstrations
 Upon running the app this page will be displayed created by one of my teamates, to begin my part click on the "+" on any of the meals will begin my part.
