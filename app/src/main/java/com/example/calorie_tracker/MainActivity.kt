@@ -1,5 +1,6 @@
 package com.example.calorie_tracker
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -75,48 +76,53 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val dbman = DatabaseManager(this)
-            val navController = rememberNavController()
-            // Pass this into each UI so it can be accessed once in each page and correctly keep theme
-            val myColorThemeViewModel: ColorThemeViewModel = viewModel()
-            val databasedColorTheme = dbman.checkIfExistingColorTheme()
+            Main(this)
+        }
+    }
+}
 
-            // if color them previously selected, then load desired theme on startup
-            if (databasedColorTheme != -1) {
-                val selectedTheme = ColorTheme.entries.getOrNull(databasedColorTheme)
-                    ?: ColorTheme.DARK // elvis operator to default to DARK if nothing exists in table
-                myColorThemeViewModel.currentColorTheme =
-                    selectedTheme // cached locally outside database
-            }
+@Composable
+fun Main(context: Context) {
+    val dbman = DatabaseManager(context)
+    val navController = rememberNavController()
+    // Pass this into each UI so it can be accessed once in each page and correctly keep theme
+    val myColorThemeViewModel: ColorThemeViewModel = viewModel()
+    val databasedColorTheme = dbman.checkIfExistingColorTheme()
 
-            // caches all the information from the database for power saving and locality
-            breakfastInformation = GetCache(dbman, "Breakfast")
-            lunchInformation = GetCache(dbman, "Lunch")
-            dinnerInformation = GetCache(dbman, "Dinner")
-            desertInformation = GetCache(dbman, "Desert")
-            snacksInformation = GetCache(dbman, "Snacks")
+    // if color them previously selected, then load desired theme on startup
+    if (databasedColorTheme != -1) {
+        val selectedTheme = ColorTheme.entries.getOrNull(databasedColorTheme)
+            ?: ColorTheme.DARK // elvis operator to default to DARK if nothing exists in table
+        myColorThemeViewModel.currentColorTheme =
+            selectedTheme // cached locally outside database
+    }
 
-            // The navHost which controls the different screens that actually shown to the end user
-            NavHost(navController, startDestination = Screens.MAINSCREEN.name) {
-                composable(Screens.MAINSCREEN.name) {
-                    MainScreenUI(navController, myColorThemeViewModel, dbman)
-                }
+    // caches all the information from the database for power saving and locality
+    breakfastInformation = GetCache(dbman, "Breakfast")
+    lunchInformation = GetCache(dbman, "Lunch")
+    dinnerInformation = GetCache(dbman, "Dinner")
+    desertInformation = GetCache(dbman, "Desert")
+    snacksInformation = GetCache(dbman, "Snacks")
 
-                composable(Screens.FOODPAGE.name) {
-                    val foodPage = AddFoodPage()
-                    foodPage.FoodPageUI(navController, correctFoodCapitalization(currentlySelectedMeal.toString()), myColorThemeViewModel, dbman)
-                }
+    // The navHost which controls the different screens that actually shown to the end user
+    NavHost(navController, startDestination = Screens.MAINSCREEN.name) {
+        composable(Screens.MAINSCREEN.name) {
+            MainScreenUI(navController, myColorThemeViewModel, dbman)
+        }
 
-                composable(Screens.GRAPHPAGE.name) {
-                    val graphPage = viewGraphPage()
-                    graphPage.ComplexGraphController(navController, myColorThemeViewModel, dbman)
-                }
+        composable(Screens.FOODPAGE.name) {
+            val foodPage = AddFoodPage()
+            foodPage.FoodPageUI(navController, correctFoodCapitalization(currentlySelectedMeal.toString()), myColorThemeViewModel, dbman)
+        }
 
-                composable(Screens.PROFILEPAGE.name) {
-                    val ProfilePage = ProfilePage()
-                    ProfilePage.ProfilePageUI(navController, myColorThemeViewModel, server, dbman)
-                }
-            }
+        composable(Screens.GRAPHPAGE.name) {
+            val graphPage = viewGraphPage()
+            graphPage.ComplexGraphController(navController, myColorThemeViewModel, dbman)
+        }
+
+        composable(Screens.PROFILEPAGE.name) {
+            val ProfilePage = ProfilePage()
+            ProfilePage.ProfilePageUI(navController, myColorThemeViewModel, server, dbman)
         }
     }
 }
