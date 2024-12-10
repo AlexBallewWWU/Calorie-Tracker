@@ -53,12 +53,9 @@ class ProfilePage {
     private var weight by mutableStateOf("")
     private var age by mutableStateOf("")
     private var height by mutableStateOf("")
-
     private var targetWeight by mutableStateOf("")
     private var currentlySelectedGender: Gender = Gender.MALE // default male since defaulted radio button
-
     private var myUserData: UserData? = null
-
     private var currentColorTheme: ColorTheme = ColorTheme.DARK
 
     @Composable
@@ -123,7 +120,6 @@ class ProfilePage {
                 Button(
                     onClick = { updateProfileInformation(dbman) },
                     modifier = Modifier.testTag("updateProfileButton")
-//                    modifier = Modifier.align(Alignment.CenterVertically).padding(8.dp)
                 ) {
                     Text(text = "Update Profile",
                         fontSize = 15.sp,
@@ -201,39 +197,26 @@ class ProfilePage {
                 modifier = Modifier.padding(8.dp).testTag("${label}-input") // test tagged
             )
         }
-
         Spacer(modifier = Modifier.height(8.dp))
-
     }
 
     // Updates the users profile information in the database and the server
     fun updateProfileInformation(dbman: DatabaseManager) {
-        Log.d("@@@", "Updating profile information to: Name $name, Email: $email, Weight: $weight, Age: $age, Height: $height, Gender: ${currentlySelectedGender.ordinal}")
-
         val ageToInt = age.toIntOrNull()
         val weightToDouble = weight.toDoubleOrNull()
         val heightToDouble = height.toDoubleOrNull()
+        val sqlString = server.userDataForSQL()
 
         if (ageToInt != null && weightToDouble != null && heightToDouble != null) {
-
             server.setUserData(name, email, ageToInt, weightToDouble, heightToDouble, currentlySelectedGender.ordinal)
-
-//            Log.d("$$$", "Updated UserData Object contains: ${server.userDataToString()}")
-
             if (currentDateAndWieght != null) {
                 currentDateAndWieght.weight = myUserData?.weight ?: 0.0 // 0.0 for error handling later...
             }
-
-            val sqlString = server.userDataForSQL()
-
             CoroutineScope(Dispatchers.IO).launch { // threaded
                 dbman.clearUserProfile()
-
                 Log.d("@@@", "Sending SQL USERPROFILE Database following string: $sqlString")
-
                 dbman.insertUserProfileData(sqlString)
             }
-
         } else { // error handling
             Log.d("Input Error", "Invalid input for either age, weight, or height: ")
             Log.d("Input Error", "'$age' - Must be an Integer")
@@ -247,13 +230,10 @@ class ProfilePage {
         val targetWeightToInt = targetWeight.toIntOrNull()
 
         if (targetWeightToInt != null) { // if valid input from user
-
             CoroutineScope(Dispatchers.IO).launch {
                 dbman.clearStoredAppData() // clears STOREDAPPINFORMATION database so only 1 row ever exists...
-//                Log.d("@@@", "Sending values: $targetWeightToInt, ${currentColorTheme.ordinal}")
                 dbman.insertUpdatedWeight(targetWeightToInt, currentColorTheme)
             }
-
         } else { // if input was invalid print error message to log
             Log.d("Input Error", "Invalid input for targetWeight: '$targetWeight' - Must be an Integer")
         }
@@ -319,7 +299,6 @@ class ProfilePage {
                 }
 
             }
-
         }
     }
 }

@@ -1,24 +1,12 @@
 package com.example.calorie_tracker
 
-import android.app.Application
-import android.content.Context
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.lifecycle.ViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Test
@@ -42,35 +30,17 @@ class ProfilePageUITest {
     @Test
     fun testEmptyProfilePageUpdate() {
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
-            val dbman = DatabaseManager(LocalContext.current)
-
-//            myNavhostDropDownMenu(navController, myColorThemeViewModel)
-
-//            NavHost(navController, startDestination = Screens.MAINSCREEN.name) {
-//                composable(Screens.MAINSCREEN.name) {
-//                    MainScreenUI(navController, myColorThemeViewModel, dbman)
-//                }
-//                composable(Screens.PROFILEPAGE.name) {
-//                    ProfilePageUI(navController, myColorThemeViewModel, dbman)
-//                }
-//            }
             Main(LocalContext.current)
         }
 
         // click on the icon to open dropdownMenu
         composeTestRule.onNodeWithTag("NavhostDropdownMenuIcon").performClick()
-
         // check that it is displayed
         composeTestRule.onNodeWithTag("NavhostDropdownMenu").assertIsDisplayed()
-
         // click on the profile node of DropdownMenu
         composeTestRule.onNodeWithText("Profile").performClick()
-
         // test if the button is shown on the screen (Meaning we're on profile page)
         composeTestRule.onNodeWithTag("updateProfileButton").assertIsDisplayed()
-
         // click on button with empty values to ensure no crash
         composeTestRule.onNodeWithTag("updateProfileButton").performClick()
     }
@@ -79,34 +49,21 @@ class ProfilePageUITest {
     @Test
     fun testIncorrectProfilePageData() {
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
-            val dbman = DatabaseManager(LocalContext.current)
-
             Main(LocalContext.current)
-
         }
-
         // click on the icon to open dropdownMenu
         composeTestRule.onNodeWithTag("NavhostDropdownMenuIcon").performClick()
-
         // check that it is displayed
         composeTestRule.onNodeWithTag("NavhostDropdownMenu").assertIsDisplayed()
-
         // click on the profile node of DropdownMenu
         composeTestRule.onNodeWithText("Profile").performClick()
-
         // test if the button is shown on the screen (Meaning we're on profile page)
         composeTestRule.onNodeWithTag("updateProfileButton").assertIsDisplayed()
-
         composeTestRule.onNodeWithTag("Name-input").performTextInput("testFailName")
         composeTestRule.onNodeWithTag("Email-input").performTextInput("testFailEmail")
-
         composeTestRule.onNodeWithTag("Weight (lbs)-input").performTextInput("Non-Doublables...")
         composeTestRule.onNodeWithTag("Age-input").performTextInput("your moms weight hehehe")
         composeTestRule.onNodeWithTag("Height (Inches)-input").performTextInput("goliath")
-
-
         // click on button with non integer or double values to ensure error handling
         composeTestRule.onNodeWithTag("updateProfileButton").performClick()
     }
@@ -115,15 +72,10 @@ class ProfilePageUITest {
     fun testCorrectProfilePageDataAndDatabase() {
 
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
             val dbman = DatabaseManager(LocalContext.current)
-
             Main(LocalContext.current)
 
-
         // use cursor to get USERPROFILE information from database
-
             // get written over in cursor
             var name = "testName"
             var email = "testEmail"
@@ -133,9 +85,7 @@ class ProfilePageUITest {
 
             // add data to server
             server.setUserData(name, email, age, weight, inchHeight, 1)
-
             val addedString = server.userDataForSQL()
-
             // add data to database
             dbman.insertUserProfileData(addedString)
 
@@ -151,7 +101,6 @@ class ProfilePageUITest {
             }
             cursor.close()
 
-
             // check database for correctly stored values
             assertEquals("testName", name)
             assertEquals("testEmail", email)
@@ -160,36 +109,23 @@ class ProfilePageUITest {
             val delta = 0.01
             assertEquals(160.0, weight, delta)
             assertEquals(62.0, inchHeight, delta)
-
         }
     }
 
     @Test
     fun testEmptyTargetWeights() {
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
-            val dbman = DatabaseManager(LocalContext.current)
-
-//            myNavhostDropDownMenu(navController, myColorThemeViewModel)
-
             Main(LocalContext.current)
-
         }
 
         // click on the icon to open dropdownMenu
         composeTestRule.onNodeWithTag("NavhostDropdownMenuIcon").performClick()
-
         // check that it is displayed
         composeTestRule.onNodeWithTag("NavhostDropdownMenu").assertIsDisplayed()
-
         // click on the profile node of DropdownMenu
         composeTestRule.onNodeWithText("Profile").performClick()
-
         // test if the button is shown on the screen (Meaning we're on profile page)
         composeTestRule.onNodeWithTag("updateProfileButton").assertIsDisplayed()
-
-
         // click on button with non integer or double values to ensure error handling
         composeTestRule.onNodeWithTag("updateTargetWeightButton").performClick()
     }
@@ -198,28 +134,18 @@ class ProfilePageUITest {
     @Test
     fun testStringedTargetWeights() {
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
-            val dbman = DatabaseManager(LocalContext.current)
-
             Main(LocalContext.current)
-
         }
 
         // click on the icon to open dropdownMenu
         composeTestRule.onNodeWithTag("NavhostDropdownMenuIcon").performClick()
-
         // check that it is displayed
         composeTestRule.onNodeWithTag("NavhostDropdownMenu").assertIsDisplayed()
-
         // click on the profile node of DropdownMenu
         composeTestRule.onNodeWithText("Profile").performClick()
-
         // test if the button is shown on the screen (Meaning we're on profile page)
         composeTestRule.onNodeWithTag("updateProfileButton").assertIsDisplayed()
-
         composeTestRule.onNodeWithTag("Target Weight-input").performTextInput("testFailWeight")
-
         // click on button with string value to ensure error handling
         composeTestRule.onNodeWithTag("updateTargetWeightButton").performClick()
     }
@@ -227,25 +153,15 @@ class ProfilePageUITest {
     // test the database for the targetWeight
     @Test
     fun testCorrectWeightDataInDatabase() {
-
         composeTestRule.setContent {
-            val navController = rememberNavController()
-            val myColorThemeViewModel = ColorThemeViewModel()
             val dbman = DatabaseManager(LocalContext.current)
-
             Main(LocalContext.current)
-
-
             // use cursor to get USERPROFILE information from database
-
             val targetWeight = 180
             var checkTargetWeight = 0
-
             // add data to server
-
             // add data to database
             dbman.insertUpdatedWeight(targetWeight, ColorTheme.DARK)
-
             // iterate over table (1 entry) and if data was successfully added it will be asserted
             val cursor = dbman.readableDatabase.rawQuery("SELECT * FROM STOREDAPPINFORMATION", null)
             // get all the information from the database
@@ -253,11 +169,9 @@ class ProfilePageUITest {
                 checkTargetWeight = cursor.getInt(0)
             }
             cursor.close()
-
             // check database for correctly stored value
             assertEquals(targetWeight, checkTargetWeight)
 
         }
     }
-
 }
