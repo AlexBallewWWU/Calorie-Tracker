@@ -42,7 +42,7 @@ Upon the Barcode being scanned the user will be redirected back to this page whe
 
 If the user goes back to the overview page all changes will be displayed
 
-![alt_text](/app/src/main/res/drawable/AddFooditems.png)
+![alt_text](/app/src/main/res/drawable/addfooditems.png)
 
 Lastly, these changes are also reflected in my teamates home page
 
