@@ -9,7 +9,7 @@ I worked mostly on item entry. This means implementing the display page for item
 nutrition associated with barcode values, etc. . . . 
 
 ## Concepts
-API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compose
+API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compose, Kotlin, Full-Stack
 
 ## Demonstrations
 
