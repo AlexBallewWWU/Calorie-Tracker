@@ -18,7 +18,7 @@ API requests, Google camera, Queries, MySQL, Relational Databases, Jetpack Compo
 ## Demonstrations
 Upon running the app this page will be displayed created by one of my teamates, to begin my part click on the "+" on any of the meals will begin my part.
 
-![alt_text](/app/src/main/res/drawable/HomePage.png)
+![alt_text](/app/src/main/res/drawable/homepage.png)
 
 This page is used to display all food items for the breakfast meal, currently no items have been added so nothing is displayed.
 
@@ -26,15 +26,15 @@ This page is used to display all food items for the breakfast meal, currently no
 
 After clicking "Add", it will bring the user to a page to add items with two options
 
-![alt_text](/app/src/main/res/drawable/AddingType.png)
+![alt_text](/app/src/main/res/drawable/addingtype.png)
 
 Clicking on "Custom Entry" will bring the user to this page where the user can manually fill in on values (Error handeling is implemented)
 
-![alt_text](/app/src/main/res/drawable/CustomEntry.png)
+![alt_text](/app/src/main/res/drawable/customentry.png)
 
 The user will then be redirected back to the add option page, if they were to then choose "Barcode Entry" this barcode scanner will show up where they can add a barcode like below.
 
-![alt_text](/app/src/main/res/drawable/BarcodeEntry.png)
+![alt_text](/app/src/main/res/drawable/barcodeentry.png)
 
 Upon the Barcode being scanned the user will be redirected back to this page where they change how many servings they consumed (Error handeling implemented, default 1 serving)
 
